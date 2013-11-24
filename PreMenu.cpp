@@ -33,7 +33,7 @@
 cPreMenu::cPreMenu(cInit *apInit)  : iUpdateable("PreMenu")
 {
 	mpInit = apInit;
-	mpDrawer = mpInit->mpGame->GetGraphics()->GetDrawer();
+	mpDrawer = mpInit->mpGame->GetGraphics()->GetOverlayDrawer();
 
 	//Load fonts
 	mpFont = mpInit->mpGame->GetResources()->GetFontManager()->CreateFontData("verdana.fnt");

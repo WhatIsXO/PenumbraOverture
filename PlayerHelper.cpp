@@ -1023,6 +1023,13 @@ void cPlayerLean::Lean(float afMul, float afTimeStep)
 
 //-----------------------------------------------------------------------
 
+void cPlayerLean::AddLean(float afVal)
+{
+		mpPlayer->GetCamera()->AddRoll(afVal);
+}
+
+//-----------------------------------------------------------------------
+
 //////////////////////////////////////////////////////////////////////////
 // DAMAGE
 //////////////////////////////////////////////////////////////////////////
@@ -2106,7 +2113,7 @@ cPlayerHidden::cPlayerHidden(cInit *apInit)
 
 	mfUpdateCount = 1.0f / 3.0f;
 
-	cVector2f vScreenSize = mpInit->mpGame->GetGraphics()->GetLowLevel()->GetScreenSize();
+	cVector2f vScreenSize = mpInit->mpGame->GetGraphics()->GetLowLevel()->GetViewportSize();
 	
 	mfStartEffectOffset = 40;
 	mfHiddenEffectOffset = 0;
@@ -2260,58 +2267,61 @@ void cPlayerHidden::Update(float afTimeStep)
 
 	///////////////////////////////////
 	// Update Hidden effect
-	if(mbHidden)
+	if (!mpInit->mbRiftSupport)
 	{
-		//Aspect
-		if(mfAspect > mfHiddenAspect)
+		if(mbHidden)
 		{
-			mfAspect -= afTimeStep * mfAspectAdd *(1/mfHiddenOnTime);
-			if(mfAspect < mfHiddenAspect) mfAspect = mfHiddenAspect;
+			//Aspect
+			if(mfAspect > mfHiddenAspect)
+			{
+				mfAspect -= afTimeStep * mfAspectAdd *(1/mfHiddenOnTime);
+				if(mfAspect < mfHiddenAspect) mfAspect = mfHiddenAspect;
 
-			mpInit->mpPlayer->GetCamera()->SetAspect(mfAspect);
+				mpInit->mpPlayer->GetCamera()->SetAspect(mfAspect);
+			}
+
+			//FOV
+			if(mfFov < mfHiddenFov)
+			{
+				mfFov += afTimeStep * mfFovAdd*(1/mfHiddenOnTime);
+				if(mfFov > mfHiddenFov) mfFov = mfHiddenFov;
+
+				mpInit->mpPlayer->GetCamera()->SetFOV(mfFov);
+			}
+
+			//Effect offset
+			if(mfEffectOffset > mfHiddenEffectOffset)
+			{
+				mfEffectOffset -= afTimeStep * mfEffectOffsetAdd*(1/mfHiddenOnTime);
+				if(mfEffectOffset < mfHiddenEffectOffset) mfEffectOffset = mfHiddenEffectOffset;
+			}
 		}
-
-		//FOV
-		if(mfFov < mfHiddenFov)
+		else
 		{
-			mfFov += afTimeStep * mfFovAdd*(1/mfHiddenOnTime);
-			if(mfFov > mfHiddenFov) mfFov = mfHiddenFov;
+			//Aspect
+			if(mfAspect < mfStartAspect)
+			{
+				mfAspect += afTimeStep * mfAspectAdd * (1/mfHiddenOffTime);
+				if(mfAspect > mfStartAspect) mfAspect = mfStartAspect;
 
-			mpInit->mpPlayer->GetCamera()->SetFOV(mfFov);
-		}
+				mpInit->mpPlayer->GetCamera()->SetAspect(mfAspect);
+			}
 
-		//Effect offset
-		if(mfEffectOffset > mfHiddenEffectOffset)
-		{
-			mfEffectOffset -= afTimeStep * mfEffectOffsetAdd*(1/mfHiddenOnTime);
-			if(mfEffectOffset < mfHiddenEffectOffset) mfEffectOffset = mfHiddenEffectOffset;
-		}
-	}
-	else
-	{
-		//Aspect
-		if(mfAspect < mfStartAspect)
-		{
-			mfAspect += afTimeStep * mfAspectAdd * (1/mfHiddenOffTime);
-			if(mfAspect > mfStartAspect) mfAspect = mfStartAspect;
+			//FOV
+			if(mfFov > mfStartFov)
+			{
+				mfFov -= afTimeStep * mfFovAdd * (1/mfHiddenOffTime);
+				if(mfFov < mfStartFov) mfFov = mfStartFov;
 
-			mpInit->mpPlayer->GetCamera()->SetAspect(mfAspect);
-		}
+				mpInit->mpPlayer->GetCamera()->SetFOV(mfFov);
+			}
 
-		//FOV
-		if(mfFov > mfStartFov)
-		{
-			mfFov -= afTimeStep * mfFovAdd * (1/mfHiddenOffTime);
-			if(mfFov < mfStartFov) mfFov = mfStartFov;
-
-			mpInit->mpPlayer->GetCamera()->SetFOV(mfFov);
-		}
-		
-		//Effect offset
-		if(mfEffectOffset < mfStartEffectOffset)
-		{
-			mfEffectOffset += afTimeStep * mfEffectOffsetAdd * (1/mfHiddenOffTime);
-			if(mfEffectOffset > mfStartEffectOffset) mfEffectOffset = mfStartEffectOffset;
+			//Effect offset
+			if(mfEffectOffset < mfStartEffectOffset)
+			{
+				mfEffectOffset += afTimeStep * mfEffectOffsetAdd * (1/mfHiddenOffTime);
+				if(mfEffectOffset > mfStartEffectOffset) mfEffectOffset = mfStartEffectOffset;
+			}
 		}
 	}
 
@@ -2610,7 +2620,9 @@ void cPlayerHidden::UpdateEnemyTooClose(float afTimeStep)
 			fAdd = sin(fT * kPi2f) * mfCloseEffectFovMin;
 		}
 
-        pCam->SetFOV(mfFov + fAdd);
+		// No FOV changes for rift
+		if (!mpInit->mbRiftSupport)
+			pCam->SetFOV(mfFov + fAdd);
 
 		mpInit->mpGame->GetGraphics()->GetRendererPostEffects()->SetImageTrailActive(true);
 		mpInit->mpGame->GetGraphics()->GetRendererPostEffects()->SetImageTrailAmount(0.8f);
@@ -2642,7 +2654,9 @@ void cPlayerHidden::UpdateEnemyTooClose(float afTimeStep)
 			fAdd = sin(fT * kPi2f) * mfCloseEffectFovMin;
 		}
 
-		pCam->SetFOV(mfFov + fAdd);
+		// No FOV changes for rift
+		if (!mpInit->mbRiftSupport)
+			pCam->SetFOV(mfFov + fAdd);
 	}
 
 	/////////////////////////////

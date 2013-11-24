@@ -33,7 +33,7 @@
 
 cNotebookState_Front::cNotebookState_Front(cInit *apInit, cNotebook *apNotebook) : iNotebookState(apInit, apNotebook)
 {
-	mpDrawer = mpInit->mpGame->GetGraphics()->GetDrawer();
+	mpDrawer = mpInit->mpGame->GetGraphics()->GetOverlayDrawer();
 	mpTextBack = mpDrawer->CreateGfxObject("notebook_textback.bmp","diffalpha2d");
 	
 	mpFrontFont =  mpInit->mpGame->GetResources()->GetFontManager()->CreateFontData("verdana.fnt");
@@ -164,7 +164,7 @@ void cNotebookState_Front::OnExit()
 
 cNotebookState_TaskList::cNotebookState_TaskList(cInit *apInit, cNotebook *apNotebook) : iNotebookState(apInit, apNotebook)
 {
-	mpDrawer = mpInit->mpGame->GetGraphics()->GetDrawer();
+	mpDrawer = mpInit->mpGame->GetGraphics()->GetOverlayDrawer();
 	mpTextFont =  mpInit->mpGame->GetResources()->GetFontManager()->CreateFontData("cour.fnt",14);
 
 	mfFontSize = 15;
@@ -390,7 +390,7 @@ void cNotebookState_TaskList::OnExit()
 
 cNotebookState_NoteList::cNotebookState_NoteList(cInit *apInit, cNotebook *apNotebook) : iNotebookState(apInit, apNotebook)
 {
-	mpDrawer = mpInit->mpGame->GetGraphics()->GetDrawer();
+	mpDrawer = mpInit->mpGame->GetGraphics()->GetOverlayDrawer();
 	mpTextBack = mpDrawer->CreateGfxObject("notebook_listtextback.bmp","diffalpha2d");
 	mpTab = mpDrawer->CreateGfxObject("notebook_tab.bmp","diffalpha2d");
 
@@ -663,7 +663,7 @@ void cNotebookState_NoteList::OnExit()
 
 cNotebookState_Note::cNotebookState_Note(cInit *apInit, cNotebook *apNotebook) : iNotebookState(apInit, apNotebook)
 {
-	mpDrawer = mpInit->mpGame->GetGraphics()->GetDrawer();
+	mpDrawer = mpInit->mpGame->GetGraphics()->GetOverlayDrawer();
 	mpOptionsImage[0] = mpDrawer->CreateGfxObject("notebook_nextpage.bmp","diffalpha2d");
 	mpOptionsImage[1] = mpDrawer->CreateGfxObject("notebook_prevpage.bmp","diffalpha2d");
 
@@ -891,7 +891,7 @@ void cNotebookState_Note::OnExit()
 cNotebook::cNotebook(cInit *apInit)  : iUpdateable("Notebook")
 {
 	mpInit = apInit;
-	mpDrawer = mpInit->mpGame->GetGraphics()->GetDrawer();
+	mpDrawer = mpInit->mpGame->GetGraphics()->GetOverlayDrawer();
 
 	Reset();
 

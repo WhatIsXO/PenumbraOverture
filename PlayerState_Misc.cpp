@@ -654,6 +654,21 @@ cPlayerState_Message::cPlayerState_Message(cInit *apInit,cPlayer *apPlayer) : iP
 
 void cPlayerState_Message::OnUpdate(float afTimeStep)
 {	
+	/////////////////////////////////////////////////
+	// Check if the camera should be turned
+	cVector2f vCrossPos = mpPlayer->GetCrossHairPos();
+	cVector2f vBorder = mpPlayer->GetInteractMoveBorder();
+
+	if(vCrossPos.x < vBorder.x)
+		mpPlayer->GetCamera()->AddYaw( (vBorder.x - vCrossPos.x)/800 * mpPlayer->GetLookSpeed());
+	if(vCrossPos.x > (799 - vBorder.x))
+		mpPlayer->GetCamera()->AddYaw( -(vCrossPos.x - (799 - vBorder.x))/800 * mpPlayer->GetLookSpeed());
+	mpPlayer->GetCharacterBody()->SetYaw(mpPlayer->GetCamera()->GetYaw());
+
+	if(vCrossPos.y < vBorder.y)
+		mpPlayer->GetCamera()->AddPitch( (vBorder.y - vCrossPos.y)/600 * mpPlayer->GetLookSpeed());
+	if(vCrossPos.y > (599 - vBorder.y))
+		mpPlayer->GetCamera()->AddPitch( -(vCrossPos.y - (599 - vBorder.y))/600 * mpPlayer->GetLookSpeed());
 }
 
 //-----------------------------------------------------------------------
@@ -683,13 +698,31 @@ void cPlayerState_Message::OnStartExamine()
 
 //-----------------------------------------------------------------------
 
-bool cPlayerState_Message::OnMoveForwards(float afMul, float afTimeStep){	return false;}
-bool cPlayerState_Message::OnMoveSideways(float afMul, float afTimeStep){	return false;}
+bool cPlayerState_Message::OnMoveForwards(float afMul, float afTimeStep)
+{
+	return false;
+}
 
 //-----------------------------------------------------------------------
 
-bool cPlayerState_Message::OnAddYaw(float afVal){ return false;}
-bool cPlayerState_Message::OnAddPitch(float afVal){return false;}
+bool cPlayerState_Message::OnMoveSideways(float afMul, float afTimeStep)
+{
+	return false;
+}
+
+//-----------------------------------------------------------------------
+
+bool cPlayerState_Message::OnAddYaw(float afVal)
+{
+	return true;
+}
+
+//-----------------------------------------------------------------------
+
+bool cPlayerState_Message::OnAddPitch(float afVal)
+{
+	return true;
+}
 
 //-----------------------------------------------------------------------
 

@@ -111,6 +111,9 @@ public:
 	
 	//Main properties
 	cVector2l mvScreenSize;
+	cVector2l mvRiftFramebufferSize;
+	bool mbRiftSupport;
+	bool mbRiftPregen;
 	bool mbFullScreen;
 	bool mbVsync;
 	tString msGlobalScriptFile;

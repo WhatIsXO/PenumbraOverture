@@ -600,7 +600,7 @@ void cPlayerState_Move::OnUpdate(float afTimeStep)
 		return;
 	}
 
-	/////////////////////////////////////////	
+	/////////////////////////////////////////
 	//Check if the body should be stopped
 	if(mlMoveCount <= 0)
 	{

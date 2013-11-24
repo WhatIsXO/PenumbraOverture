@@ -1,114 +1,179 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="7.10"
+	Version="9.00"
 	Name="Penumbra"
 	ProjectGUID="{C6E72C29-38A3-4897-AA05-E87B0323AA71}"
-	Keyword="Win32Proj">
+	Keyword="Win32Proj"
+	TargetFrameworkVersion="131072"
+	>
 	<Platforms>
 		<Platform
-			Name="Win32"/>
+			Name="Win32"
+		/>
 	</Platforms>
+	<ToolFiles>
+	</ToolFiles>
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
 			OutputDirectory="build/Debug"
 			IntermediateDirectory="build/Debug"
 			ConfigurationType="1"
-			CharacterSet="2">
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
+				AdditionalIncludeDirectories="..\HPL1Engine\include;..\dependencies\include;..\OALWrapper\include;..\dependencies\include\LibOVR\Include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
-				MinimalRebuild="TRUE"
+				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
-				UsePrecompiledHeader="3"
+				UsePrecompiledHeader="2"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="TRUE"
-				DebugInformationFormat="4"/>
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="4"
+			/>
 			<Tool
-				Name="VCCustomBuildTool"/>
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="hpl.lib OALWrapper.lib fltk.lib wsock32.lib comctl32.lib advapi32.lib libogg.lib libovr.lib WINMM.LIB"
 				OutputFile="Penumbra.exe"
 				LinkIncremental="2"
-				GenerateDebugInformation="TRUE"
+				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(OutDir)/Penumbra.pdb"
 				SubSystem="2"
-				TargetMachine="1"/>
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
+				TargetMachine="1"
+			/>
 			<Tool
-				Name="VCMIDLTool"/>
+				Name="VCALinkTool"
+			/>
 			<Tool
-				Name="VCPostBuildEventTool"/>
+				Name="VCManifestTool"
+			/>
 			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCXDCMakeTool"
+			/>
 			<Tool
-				Name="VCPreLinkEventTool"/>
+				Name="VCBscMakeTool"
+			/>
 			<Tool
-				Name="VCResourceCompilerTool"/>
+				Name="VCFxCopTool"
+			/>
 			<Tool
-				Name="VCWebServiceProxyGeneratorTool"/>
+				Name="VCAppVerifierTool"
+			/>
 			<Tool
-				Name="VCXMLDataGeneratorTool"/>
-			<Tool
-				Name="VCWebDeploymentTool"/>
-			<Tool
-				Name="VCManagedWrapperGeneratorTool"/>
-			<Tool
-				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+				Name="VCPostBuildEventTool"
+			/>
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
 			OutputDirectory="build/Release"
 			IntermediateDirectory="build/Release"
 			ConfigurationType="1"
-			CharacterSet="2">
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\HPL1Engine\include;..\dependencies\include;..\OALWrapper\include"
+				AdditionalIncludeDirectories="..\HPL1Engine\include;..\dependencies\include;..\OALWrapper\include;..\dependencies\include\LibOVR\Include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;"
 				RuntimeLibrary="2"
-				UsePrecompiledHeader="2"
+				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="TRUE"
-				DebugInformationFormat="3"/>
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="3"
+			/>
 			<Tool
-				Name="VCCustomBuildTool"/>
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="HPL.lib OALWrapper.lib fltk.lib wsock32.lib comctl32.lib"
+				AdditionalDependencies="hpl.lib OALWrapper.lib fltk.lib wsock32.lib comctl32.lib advapi32.lib libogg.lib libovr.lib WINMM.LIB"
 				OutputFile="../redist/Penumbra.exe"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="..\dependencies\lib\win32;..\HPL1Engine\lib;..\OALWrapper\lib;"
-				IgnoreEmbeddedIDL="FALSE"
-				GenerateDebugInformation="TRUE"
-				GenerateMapFile="TRUE"
+				IgnoreEmbeddedIDL="false"
+				GenerateDebugInformation="true"
+				GenerateMapFile="true"
 				MapFileName="Penumbra.map"
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
-				TargetMachine="1"/>
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
+				TargetMachine="1"
+			/>
 			<Tool
-				Name="VCMIDLTool"/>
+				Name="VCALinkTool"
+			/>
 			<Tool
-				Name="VCPostBuildEventTool"/>
+				Name="VCManifestTool"
+			/>
 			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCXDCMakeTool"
+			/>
 			<Tool
-				Name="VCPreLinkEventTool"/>
+				Name="VCBscMakeTool"
+			/>
 			<Tool
-				Name="VCResourceCompilerTool"/>
+				Name="VCFxCopTool"
+			/>
 			<Tool
-				Name="VCWebServiceProxyGeneratorTool"/>
+				Name="VCAppVerifierTool"
+			/>
 			<Tool
-				Name="VCXMLDataGeneratorTool"/>
-			<Tool
-				Name="VCWebDeploymentTool"/>
-			<Tool
-				Name="VCManagedWrapperGeneratorTool"/>
-			<Tool
-				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+				Name="VCPostBuildEventTool"
+			/>
 		</Configuration>
 	</Configurations>
 	<References>
@@ -117,376 +182,503 @@
 		<Filter
 			Name="Source Files"
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx"
-			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
+			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
+			>
 			<File
-				RelativePath=".\AttackHandler.cpp">
+				RelativePath=".\AttackHandler.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\ButtonHandler.cpp">
+				RelativePath=".\ButtonHandler.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\CharacterMove.cpp">
+				RelativePath=".\CharacterMove.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Credits.cpp">
+				RelativePath=".\Credits.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\DeathMenu.cpp">
+				RelativePath=".\DeathMenu.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\DemoEndText.cpp">
+				RelativePath=".\DemoEndText.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\EffectHandler.cpp">
+				RelativePath=".\EffectHandler.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\FadeHandler.cpp">
+				RelativePath=".\FadeHandler.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\GameArea.cpp">
+				RelativePath=".\GameArea.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\GameDamageArea.cpp">
+				RelativePath=".\GameDamageArea.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\GameEnemy.cpp">
+				RelativePath=".\GameEnemy.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\GameEnemy_Dog.cpp">
+				RelativePath=".\GameEnemy_Dog.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\GameEnemy_Spider.cpp">
+				RelativePath=".\GameEnemy_Spider.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\GameEnemy_Worm.cpp">
+				RelativePath=".\GameEnemy_Worm.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\GameEntity.cpp">
+				RelativePath=".\GameEntity.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\GameForceArea.cpp">
+				RelativePath=".\GameForceArea.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\GameItem.cpp">
+				RelativePath=".\GameItem.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\GameItemType.cpp">
+				RelativePath=".\GameItemType.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\GameLadder.cpp">
+				RelativePath=".\GameLadder.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\GameLamp.cpp">
+				RelativePath=".\GameLamp.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\GameLink.cpp">
+				RelativePath=".\GameLink.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\GameLiquidArea.cpp">
+				RelativePath=".\GameLiquidArea.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\GameMessageHandler.cpp">
+				RelativePath=".\GameMessageHandler.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\GameMusicHandler.cpp">
+				RelativePath=".\GameMusicHandler.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\GameObject.cpp">
+				RelativePath=".\GameObject.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\GameSaveArea.cpp">
+				RelativePath=".\GameSaveArea.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\GameScripts.cpp">
+				RelativePath=".\GameScripts.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\GameStickArea.cpp">
+				RelativePath=".\GameStickArea.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\GameSwingDoor.cpp">
+				RelativePath=".\GameSwingDoor.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\GameTypes.cpp">
+				RelativePath=".\GameTypes.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\GraphicsHelper.cpp">
+				RelativePath=".\GraphicsHelper.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\HapticGameCamera.cpp">
+				RelativePath=".\HapticGameCamera.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\HudModel_Throw.cpp">
+				RelativePath=".\HudModel_Throw.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\HudModel_Weapon.cpp">
+				RelativePath=".\HudModel_Weapon.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Init.cpp">
+				RelativePath=".\Init.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\IntroStory.cpp">
+				RelativePath=".\IntroStory.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Inventory.cpp">
+				RelativePath=".\Inventory.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Main.cpp">
+				RelativePath=".\Main.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\MainMenu.cpp">
+				RelativePath=".\MainMenu.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\MapHandler.cpp">
+				RelativePath=".\MapHandler.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\MapLoadText.cpp">
+				RelativePath=".\MapLoadText.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Notebook.cpp">
+				RelativePath=".\Notebook.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\NumericalPanel.cpp">
+				RelativePath=".\NumericalPanel.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Player.cpp">
+				RelativePath=".\Player.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\PlayerHands.cpp">
+				RelativePath=".\PlayerHands.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\PlayerHelper.cpp">
+				RelativePath=".\PlayerHelper.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\PlayerState_Interact.cpp">
+				RelativePath=".\PlayerState_Interact.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\PlayerState_InteractHaptX.cpp">
+				RelativePath=".\PlayerState_InteractHaptX.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\PlayerState_Misc.cpp">
+				RelativePath=".\PlayerState_Misc.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\PlayerState_MiscHaptX.cpp">
+				RelativePath=".\PlayerState_MiscHaptX.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\PlayerState_Weapon.cpp">
+				RelativePath=".\PlayerState_Weapon.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\PlayerState_WeaponHaptX.cpp">
+				RelativePath=".\PlayerState_WeaponHaptX.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\PreMenu.cpp">
+				RelativePath=".\PreMenu.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\RadioHandler.cpp">
+				RelativePath=".\RadioHandler.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\SaveHandler.cpp">
+				RelativePath=".\SaveHandler.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\SaveTypes.cpp">
+				RelativePath=".\SaveTypes.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\StdAfx.cpp">
+				RelativePath=".\StdAfx.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\TriggerHandler.cpp">
+				RelativePath=".\TriggerHandler.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Triggers.cpp">
+				RelativePath=".\Triggers.cpp"
+				>
 			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
-			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
+			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
+			>
 			<File
-				RelativePath=".\AttackHandler.h">
+				RelativePath=".\AttackHandler.h"
+				>
 			</File>
 			<File
-				RelativePath=".\ButtonHandler.h">
+				RelativePath=".\ButtonHandler.h"
+				>
 			</File>
 			<File
-				RelativePath=".\CharacterMove.h">
+				RelativePath=".\CharacterMove.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Credits.h">
+				RelativePath=".\Credits.h"
+				>
 			</File>
 			<File
-				RelativePath=".\DeathMenu.h">
+				RelativePath=".\DeathMenu.h"
+				>
 			</File>
 			<File
-				RelativePath=".\DemoEndText.h">
+				RelativePath=".\DemoEndText.h"
+				>
 			</File>
 			<File
-				RelativePath=".\EffectHandler.h">
+				RelativePath=".\EffectHandler.h"
+				>
 			</File>
 			<File
-				RelativePath=".\FadeHandler.h">
+				RelativePath=".\FadeHandler.h"
+				>
 			</File>
 			<File
-				RelativePath=".\GameArea.h">
+				RelativePath=".\GameArea.h"
+				>
 			</File>
 			<File
-				RelativePath=".\GameDamageArea.h">
+				RelativePath=".\GameDamageArea.h"
+				>
 			</File>
 			<File
-				RelativePath=".\GameEnemy.h">
+				RelativePath=".\GameEnemy.h"
+				>
 			</File>
 			<File
-				RelativePath=".\GameEnemy_Dog.h">
+				RelativePath=".\GameEnemy_Dog.h"
+				>
 			</File>
 			<File
-				RelativePath=".\GameEnemy_Spider.h">
+				RelativePath=".\GameEnemy_Spider.h"
+				>
 			</File>
 			<File
-				RelativePath=".\GameEnemy_Worm.h">
+				RelativePath=".\GameEnemy_Worm.h"
+				>
 			</File>
 			<File
-				RelativePath=".\GameEntity.h">
+				RelativePath=".\GameEntity.h"
+				>
 			</File>
 			<File
-				RelativePath=".\GameForceArea.h">
+				RelativePath=".\GameForceArea.h"
+				>
 			</File>
 			<File
-				RelativePath=".\GameItem.h">
+				RelativePath=".\GameItem.h"
+				>
 			</File>
 			<File
-				RelativePath=".\GameItemType.h">
+				RelativePath=".\GameItemType.h"
+				>
 			</File>
 			<File
-				RelativePath=".\GameLadder.h">
+				RelativePath=".\GameLadder.h"
+				>
 			</File>
 			<File
-				RelativePath=".\GameLamp.h">
+				RelativePath=".\GameLamp.h"
+				>
 			</File>
 			<File
-				RelativePath=".\GameLink.h">
+				RelativePath=".\GameLink.h"
+				>
 			</File>
 			<File
-				RelativePath=".\GameLiquidArea.h">
+				RelativePath=".\GameLiquidArea.h"
+				>
 			</File>
 			<File
-				RelativePath=".\GameMessageHandler.h">
+				RelativePath=".\GameMessageHandler.h"
+				>
 			</File>
 			<File
-				RelativePath=".\GameMusicHandler.h">
+				RelativePath=".\GameMusicHandler.h"
+				>
 			</File>
 			<File
-				RelativePath=".\GameObject.h">
+				RelativePath=".\GameObject.h"
+				>
 			</File>
 			<File
-				RelativePath=".\GameSaveArea.h">
+				RelativePath=".\GameSaveArea.h"
+				>
 			</File>
 			<File
-				RelativePath=".\GameScripts.h">
+				RelativePath=".\GameScripts.h"
+				>
 			</File>
 			<File
-				RelativePath=".\GameStickArea.h">
+				RelativePath=".\GameStickArea.h"
+				>
 			</File>
 			<File
-				RelativePath=".\GameSwingDoor.h">
+				RelativePath=".\GameSwingDoor.h"
+				>
 			</File>
 			<File
-				RelativePath=".\GameTypes.h">
+				RelativePath=".\GameTypes.h"
+				>
 			</File>
 			<File
-				RelativePath=".\GlobalInit.h">
+				RelativePath=".\GlobalInit.h"
+				>
 			</File>
 			<File
-				RelativePath=".\GraphicsHelper.h">
+				RelativePath=".\GraphicsHelper.h"
+				>
 			</File>
 			<File
-				RelativePath=".\HapticGameCamera.h">
+				RelativePath=".\HapticGameCamera.h"
+				>
 			</File>
 			<File
-				RelativePath=".\HudModel_Throw.h">
+				RelativePath=".\HudModel_Throw.h"
+				>
 			</File>
 			<File
-				RelativePath=".\HudModel_Weapon.h">
+				RelativePath=".\HudModel_Weapon.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Init.h">
+				RelativePath=".\Init.h"
+				>
 			</File>
 			<File
-				RelativePath=".\IntroStory.h">
+				RelativePath=".\IntroStory.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Inventory.h">
+				RelativePath=".\Inventory.h"
+				>
 			</File>
 			<File
-				RelativePath=".\MainMenu.h">
+				RelativePath=".\MainMenu.h"
+				>
 			</File>
 			<File
-				RelativePath=".\MapHandler.h">
+				RelativePath=".\MapHandler.h"
+				>
 			</File>
 			<File
-				RelativePath=".\MapLoadText.h">
+				RelativePath=".\MapLoadText.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Notebook.h">
+				RelativePath=".\Notebook.h"
+				>
 			</File>
 			<File
-				RelativePath=".\NumericalPanel.h">
+				RelativePath=".\NumericalPanel.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Player.h">
+				RelativePath=".\Player.h"
+				>
 			</File>
 			<File
-				RelativePath=".\PlayerHands.h">
+				RelativePath=".\PlayerHands.h"
+				>
 			</File>
 			<File
-				RelativePath=".\PlayerHelper.h">
+				RelativePath=".\PlayerHelper.h"
+				>
 			</File>
 			<File
-				RelativePath=".\PlayerMoveStates.h">
+				RelativePath=".\PlayerMoveStates.h"
+				>
 			</File>
 			<File
-				RelativePath=".\PlayerState.h">
+				RelativePath=".\PlayerState.h"
+				>
 			</File>
 			<File
-				RelativePath=".\PlayerState_Interact.h">
+				RelativePath=".\PlayerState_Interact.h"
+				>
 			</File>
 			<File
-				RelativePath=".\PlayerState_InteractHaptX.h">
+				RelativePath=".\PlayerState_InteractHaptX.h"
+				>
 			</File>
 			<File
-				RelativePath=".\PlayerState_Misc.h">
+				RelativePath=".\PlayerState_Misc.h"
+				>
 			</File>
 			<File
-				RelativePath=".\PlayerState_MiscHaptX.h">
+				RelativePath=".\PlayerState_MiscHaptX.h"
+				>
 			</File>
 			<File
-				RelativePath=".\PlayerState_Weapon.h">
+				RelativePath=".\PlayerState_Weapon.h"
+				>
 			</File>
 			<File
-				RelativePath=".\PlayerState_WeaponHaptX.h">
+				RelativePath=".\PlayerState_WeaponHaptX.h"
+				>
 			</File>
 			<File
-				RelativePath=".\PreMenu.h">
+				RelativePath=".\PreMenu.h"
+				>
 			</File>
 			<File
-				RelativePath=".\RadioHandler.h">
+				RelativePath=".\RadioHandler.h"
+				>
 			</File>
 			<File
-				RelativePath=".\resource.h">
+				RelativePath=".\resource.h"
+				>
 			</File>
 			<File
-				RelativePath=".\SaveHandler.h">
+				RelativePath=".\SaveHandler.h"
+				>
 			</File>
 			<File
-				RelativePath=".\SaveTypes.h">
+				RelativePath=".\SaveTypes.h"
+				>
 			</File>
 			<File
-				RelativePath=".\StdAfx.h">
+				RelativePath=".\StdAfx.h"
+				>
 			</File>
 			<File
-				RelativePath=".\TriggerHandler.h">
+				RelativePath=".\TriggerHandler.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Triggers.h">
+				RelativePath=".\Triggers.h"
+				>
 			</File>
 		</Filter>
+		<File
+			RelativePath=".\ClassDiagram1.cd"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

@@ -196,6 +196,8 @@ public:
 
 	void Lean(float afMul, float afTimeStep);
 
+	void AddLean(float afVal);
+
 	bool OnIntersect(iPhysicsBody *pBody,cPhysicsRayParams *apParams);
 
 	void Reset();
@@ -252,7 +254,7 @@ private:
 
 	cInit *mpInit;
 	cGraphicsDrawer *mpDrawer;
-	cRendererPostEffects *mpPostEffects;
+	iRendererPostEffects *mpPostEffects;
 };
 
 //---------------------------------------------
@@ -292,7 +294,7 @@ private:
 
 	cInit *mpInit;
 	cGraphicsDrawer *mpDrawer;
-	cRendererPostEffects *mpPostEffects;
+	iRendererPostEffects *mpPostEffects;
 };
 
 //---------------------------------------------

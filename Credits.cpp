@@ -38,7 +38,7 @@
 cCredits::cCredits(cInit *apInit)  : iUpdateable("Credits")
 {
 	mpInit = apInit;
-	mpDrawer = mpInit->mpGame->GetGraphics()->GetDrawer();
+	mpDrawer = mpInit->mpGame->GetGraphics()->GetOverlayDrawer();
 
 	//Load fonts
 	mpFont = mpInit->mpGame->GetResources()->GetFontManager()->CreateFontData("verdana.fnt");

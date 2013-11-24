@@ -31,7 +31,7 @@
 cMapLoadText::cMapLoadText(cInit *apInit)  : iUpdateable("MapLoadText")
 {
 	mpInit = apInit;
-	mpDrawer = mpInit->mpGame->GetGraphics()->GetDrawer();
+	mpDrawer = mpInit->mpGame->GetGraphics()->GetOverlayDrawer();
 
 	//Load graphics
 	//mpGfxMouse = mpDrawer->CreateGfxObject("player_crosshair_pointer.bmp","diffalpha2d");

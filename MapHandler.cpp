@@ -684,8 +684,8 @@ void cMapHandler::AddSaveData(cSavedWorld* apSavedWorld)
 	for(; varIt !=  pVarMap->end(); ++varIt)
 	{
 		cScriptVar &scriptVar = varIt->second;
-		scriptVar.mlVal = scriptVar.mlVal;
-		scriptVar.msName = scriptVar.msName;
+		//scriptVar.mlVal = scriptVar.mlVal;
+		//scriptVar.msName = scriptVar.msName;
 		apSavedWorld->mlstVars.Add(scriptVar);
 	}
 

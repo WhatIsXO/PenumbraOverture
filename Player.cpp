@@ -57,7 +57,7 @@ cPlayer::cPlayer(cInit *apInit)  : iUpdateable("Player")
 
 	mpScene = apInit->mpGame->GetScene();
 	mpGraphics = apInit->mpGame->GetGraphics();
-	mpGfxDrawer = mpGraphics->GetDrawer();
+	mpGfxDrawer = mpGraphics->GetOverlayDrawer(); // TODO maybe change player crosshair graphics to direct screen drawer instead of overlay
 	mpResources = apInit->mpGame->GetResources();
     
 	//Create and setup camera
@@ -108,6 +108,25 @@ cPlayer::cPlayer(cInit *apInit)  : iUpdateable("Player")
 		mvStates[ePlayerState_Message] = hplNew( cPlayerState_MessageHaptX, (mpInit,this) );
 		mvStates[ePlayerState_Throw] = hplNew( cPlayerState_ThrowHaptX, (mpInit,this) );
 		mvStates[ePlayerState_Climb] = hplNew( cPlayerState_ClimbHaptX, (mpInit,this) );
+	}
+	else if (mpInit->mbRiftSupport)
+	{
+		/** TODO Custom versions of player states to correctly interpret key/mouse input & HMD orientation
+		 * For instance a new hybrid Interact Mode:
+		 *  - HMD outputs orientation deltas
+		 * 	- mouse controls cursor position in screen space, but boundaries output to yaw/pitch
+		 * 	- mouse control treated same as Normal state
+		 */
+		mvStates[ePlayerState_Normal] = hplNew( cPlayerState_Normal, (mpInit,this) );
+		mvStates[ePlayerState_Push] = hplNew( cPlayerState_Push, (mpInit,this) );
+		mvStates[ePlayerState_Move] = hplNew( cPlayerState_Move, (mpInit,this) );
+		mvStates[ePlayerState_InteractMode] = hplNew( cPlayerState_InteractMode, (mpInit,this) );
+		mvStates[ePlayerState_Grab] = hplNew( cPlayerState_Grab, (mpInit,this) );
+		mvStates[ePlayerState_WeaponMelee] = hplNew( cPlayerState_WeaponMelee, (mpInit,this) );
+		mvStates[ePlayerState_UseItem] = hplNew( cPlayerState_UseItem, (mpInit,this) );
+		mvStates[ePlayerState_Message] = hplNew( cPlayerState_Message, (mpInit,this) );
+		mvStates[ePlayerState_Throw] = hplNew( cPlayerState_Throw, (mpInit,this) );
+		mvStates[ePlayerState_Climb] = hplNew( cPlayerState_Climb, (mpInit,this) );
 	}
 	else
 	{
@@ -776,6 +795,13 @@ void cPlayer::Lean(float afMul, float afTimeStep)
 
 //-----------------------------------------------------------------------
 
+void cPlayer::AddLean(float afVal)
+{
+	mpLean->AddLean(afVal);
+}
+
+//-----------------------------------------------------------------------
+
 
 void cPlayer::AddYaw(float afVal)
 {
@@ -1355,11 +1381,21 @@ void cPlayer::Reset()
 	//Camera
 	mpCamera->SetPitchLimits(cVector2f(cMath::ToRad(70),cMath::ToRad(-70) ));
 	mpCamera->SetYawLimits(0);
-	mpCamera->SetFOV(cMath::ToRad(70));
-
-	cVector2f vScreenSize = mpInit->mpGame->GetGraphics()->GetLowLevel()->GetScreenSize();
-	mpCamera->SetAspect(vScreenSize.x / vScreenSize.y);
-
+	// Ensure wide field of view for frustum and camera
+	if (mpInit->mbRiftSupport)
+	{
+		mpCamera->SetFOV(cMath::ToRad(110));
+/*		cVector2f vScreenSize = mpInit->mpGame->GetGraphics()->GetLowLevel()->GetViewportSize();
+		// Aspect ratio is set, but ignored at render time as projection matrix is set directly.
+		// Mainly used for frustum? - culling, lighting, shadows?
+		mpCamera->SetAspect(vScreenSize.x / vScreenSize.y);*/
+	}
+	else
+	{
+		mpCamera->SetFOV(cMath::ToRad(70));
+		cVector2f vScreenSize = mpInit->mpGame->GetGraphics()->GetLowLevel()->GetViewportSize();
+		mpCamera->SetAspect(vScreenSize.x / vScreenSize.y);
+	}
 
 	//Properties
 	mbItemFlash = false;

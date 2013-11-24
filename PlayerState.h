@@ -65,24 +65,36 @@ public:
 
 	//-------------------------------------
 	
+	/** Can be called each update from cPlayer->Update() */
 	virtual void OnUpdate(float afTimeStep){}
 	virtual void OnPostSceneDraw(){}
 	virtual void OnDraw(){}
 
+	/** When "Interact" input became triggered */
 	virtual void OnStartInteract(){}
+	/** When "Interact" input was triggered now stopped */
 	virtual void OnStopInteract(){}
+
+	/** When "Examine" input became triggered */
 	virtual void OnStartExamine(){}
+	/** When "Examine" input was triggered now stopped */
 	virtual void OnStopExamine(){}
+
 	virtual void OnStartHolster(){}
 
 	virtual bool OnJump(){ return true;}
 
+	/** When "Run" input became triggered */
 	virtual void OnStartRun(){}
+	/** When "Run" input was triggered, now stopped */
 	virtual void OnStopRun(){}
 
+	/** When "Crouch" input became triggered */
 	virtual void OnStartCrouch(){}
+	/** When "Crouch" input was triggered, now stopped */
 	virtual void OnStopCrouch(){}
 
+	/** When "InteractMode" became triggered */
 	virtual void OnStartInteractMode(){}
 
 	virtual bool OnStartInventory(){return true;}

@@ -153,6 +153,7 @@ public:
 	void MoveSideways(float afMul, float afTimeStep);
 	void AddYaw(float afVal);
 	void AddPitch(float afVal);
+	void AddLean(float afVal);
 	void Lean(float afMul, float afTimeStep);
 
 	void StartInteract();

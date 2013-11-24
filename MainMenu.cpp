@@ -69,7 +69,7 @@ static eMainMenuState gvMenuBackStates[] = {
 cMainMenuWidget::cMainMenuWidget(cInit *apInit, const cVector3f &avPos, const cVector2f &avSize)
 {
 	mpInit = apInit;
-	mpDrawer = mpInit->mpGame->GetGraphics()->GetDrawer();
+	mpDrawer = mpInit->mpGame->GetGraphics()->GetOverlayDrawer();
 
 	mvPositon = cVector3f(avPos.x, avPos.y, 40);
 	
@@ -405,7 +405,7 @@ cMainMenuWidget_List::cMainMenuWidget_List(cInit *apInit, const cVector3f &avPos
 					 cVector2f avFontSize)
  : cMainMenuWidget(apInit,avPos,avSize)
 {
-	mpDrawer = mpInit->mpGame->GetGraphics()->GetDrawer();
+	mpDrawer = mpInit->mpGame->GetGraphics()->GetOverlayDrawer();
 
 	mpFont = mpInit->mpGame->GetResources()->GetFontManager()->CreateFontData("font_menu_small.fnt",30);
 
@@ -1433,6 +1433,7 @@ cMainMenuWidget_Text *gpPostEffectsText=NULL;
 cMainMenuWidget_Text *gpBloomText=NULL;
 cMainMenuWidget_Text *gpMotionBlurText=NULL;
 cMainMenuWidget_Text *gpVSyncText=NULL;
+cMainMenuWidget_Text *gpRiftSupportText=NULL;
 cMainMenuWidget_Text *gpTextureQualityText=NULL;
 cMainMenuWidget_Text *gpShaderQualityText=NULL;
 cMainMenuWidget_Text *gpShadowsText=NULL;
@@ -1861,7 +1862,6 @@ public:
 
 //------------------------------------------------------------
 
-
 class cMainMenuWidget_MotionBlur : public cMainMenuWidget_Button
 {
 public:
@@ -1898,6 +1898,29 @@ public:
 		mpInit->mpGame->GetGraphics()->GetLowLevel()->SetVsyncActive(mpInit->mbVsync);
 
 		gpVSyncText->msText = mpInit->mbVsync ? kTranslate("MainMenu","On") : kTranslate("MainMenu","Off");
+	}
+};
+
+//------------------------------------------------------------
+
+class cMainMenuWidget_RiftSupport : public cMainMenuWidget_Button
+{
+public:
+	cMainMenuWidget_RiftSupport(cInit *apInit, const cVector3f &avPos, const tWString& asText,cVector2f avFontSize, eFontAlign aAlignment)
+		: cMainMenuWidget_Button(apInit,avPos,asText,eMainMenuState_LastEnum,avFontSize,aAlignment)
+	{
+		// TODO unsure of legality of patching game asset .lang file to add text so just hardcoding.
+		msTip = _W("Enable Oculus Rift support for stereoscopic vision. Requires headset to be plugged in and active prior to restart.");
+	}
+
+	void OnMouseDown(eMButton aButton)
+	{
+		mpInit->mbRiftSupport = !mpInit->mbRiftSupport;
+
+		gpRiftSupportText->msText = mpInit->mbRiftSupport ?
+								kTranslate("MainMenu","On") : kTranslate("MainMenu","Off");
+
+		gbMustRestart = true;
 	}
 };
 
@@ -2036,7 +2059,7 @@ cMainMenu::cMainMenu(cInit *apInit)  : iUpdateable("MainMenu")
 	mpBackground = NULL;
 
 	mpInit = apInit;
-	mpDrawer = mpInit->mpGame->GetGraphics()->GetDrawer();
+	mpDrawer = mpInit->mpGame->GetGraphics()->GetOverlayDrawer();
 
 	//Load graphics
 	mpGfxBlackQuad = mpDrawer->CreateGfxObject("effect_black.bmp","diffalpha2d");
@@ -3473,7 +3496,10 @@ void cMainMenu::CreateWidgets()
 	AddWidgetToState(eMainMenuState_OptionsGraphics,pWidgetGamma); 
 	vPos.y += 29;
 	cMainMenuWidget *pWidgetShaderQuality = hplNew( cMainMenuWidget_ShaderQuality,(mpInit,vPos,kTranslate("MainMenu","Shader Quality:"),20,eFontAlign_Right) );
-	AddWidgetToState(eMainMenuState_OptionsGraphics,pWidgetShaderQuality); 
+	AddWidgetToState(eMainMenuState_OptionsGraphics,pWidgetShaderQuality);
+	vPos.y += 29;
+	cMainMenuWidget *pWidgetRiftSupport = hplNew( cMainMenuWidget_RiftSupport,(mpInit,vPos,_W("Oculus Rift:"),20,eFontAlign_Right) );
+	AddWidgetToState(eMainMenuState_OptionsGraphics,pWidgetRiftSupport);
 
 	//vPos.x = 400;
 	//vPos.y = 230 + 150;
@@ -3519,7 +3545,12 @@ void cMainMenu::CreateWidgets()
 	AddWidgetToState(eMainMenuState_OptionsGraphics,gpShaderQualityText); 
 	gpShaderQualityText->SetExtraWidget(pWidgetShaderQuality);
 
-    
+	vPos.y += 29;
+	sText = mpInit->mbRiftSupport ? kTranslate("MainMenu","On") : kTranslate("MainMenu","Off");
+	gpRiftSupportText = hplNew( cMainMenuWidget_Text,(mpInit,vPos,sText,20,eFontAlign_Left) );
+	AddWidgetToState(eMainMenuState_OptionsGraphics,gpRiftSupportText);
+	gpRiftSupportText->SetExtraWidget(pWidgetRiftSupport);
+
 	///////////////////////////////////
 	// Options Advanced Graphics
 	///////////////////////////////////

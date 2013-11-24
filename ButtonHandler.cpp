@@ -31,6 +31,8 @@
 #include "PreMenu.h"
 #include "Credits.h"
 #include "DemoEndText.h"
+#include "graphics/GraphicsDrawer.h"
+#include "input/HMD.h"
 
 #include "MainMenu.h"
 
@@ -98,6 +100,8 @@ static cButtonHandlerAction gvDefaultActions[] = {
 {"LoadGame","Keyboard",eKey_F5,false},
 #ifdef __APPLE__
 {"QuitGame","Keyboard",eKeyModifier_META | eKey_q,false},
+#else
+{"QuitGame","Keyboard",eKeyModifier_ALT | eKey_q,false},
 #endif
 //{"LockInput","Keyboard",eKey_k,false},
 {"Screenshot","Keyboard",eKey_F12,false},
@@ -127,6 +131,10 @@ cButtonHandler::cButtonHandler(cInit *apInit)  : iUpdateable("ButtonHandler")
 	else
 		mpLowLevelHaptic = NULL;
 
+	if (mpInit->mbRiftSupport)
+		mpHMD = mpInit->mpGame->GetGraphics()->GetHMD();
+	else
+		mpHMD = NULL;
 	
 	mState = eButtonHandlerState_Game;
 
@@ -226,6 +234,7 @@ void cButtonHandler::Update(float afTimeStep)
 
 		mpInit->mpGame->GetGraphics()->GetLowLevel()->SaveScreenToBMP(sFileName);
 	}
+
 	if(mpInput->BecameTriggerd("LockInput"))
 	{
 #ifndef WIN32
@@ -705,10 +714,26 @@ void cButtonHandler::Update(float afTimeStep)
 					}
 					
 					//Get the mouse pos and convert it to 0 - 1
+
 					if(mpInit->mbHasHaptics==false)
 					{
 						cVector2f vRel = mpInput->GetMouse()->GetRelPosition();
 						vRel /= mpLowLevelGraphics->GetVirtualSize();
+
+						if (mpInit->mbRiftSupport==true)
+						{
+							// Use HMD for yaw, pitch, roll TODO make roll controllable for camera - no lean?
+							mpPlayer->AddYaw(-mpHMD->getYawDelta());
+							mpPlayer->AddPitch(-mpHMD->getPitchDelta());
+							mpPlayer->AddLean(-mpHMD->getRollDelta());
+
+							// Update mouse if interact mode
+							if ( mpPlayer->GetState() == ePlayerState_InteractMode)
+							{
+								mpPlayer->AddYaw(vRel.x * mfMouseSensitivity);
+								mpPlayer->AddPitch(vRel.y * mfMouseSensitivity);
+							}
+						}
 
 						mpPlayer->AddYaw(vRel.x * mfMouseSensitivity);
 						mpPlayer->AddPitch(vRel.y * mfMouseSensitivity);

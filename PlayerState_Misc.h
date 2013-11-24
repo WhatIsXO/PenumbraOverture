@@ -128,7 +128,7 @@ public:
 	cPlayerState_Message(cInit *apInit,cPlayer *apPlayer);
 	
 	void OnUpdate(float afTimeStep);
-	
+
 	bool OnJump();
 	
 	void OnStartInteract();

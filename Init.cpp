@@ -324,10 +324,19 @@ bool cInit::Init(tString asCommandLine)
     mpGameConfig = hplNew( cConfigFile, (_W("config/game.cfg")) );
 	mpGameConfig->Load();
 
+
+	mbFullScreen = mpConfig->GetBool("Screen", "FullScreen", false);
+	mbVsync = mpConfig->GetBool("Screen", "Vsync", false);
+	mbRiftSupport = mpConfig->GetBool("Screen","RiftSupport", false);
+	mbRiftPregen = mpConfig->GetBool("Screen","RiftPregenWarp", false);
 	mvScreenSize.x = mpConfig->GetInt("Screen","Width",800);
 	mvScreenSize.y = mpConfig->GetInt("Screen","Height",600);
-	mbFullScreen = mpConfig->GetBool("Screen", "FullScreen", true);
-	mbVsync = mpConfig->GetBool("Screen", "Vsync", false);
+
+	// Rift framebuffer needs to be oversampled to prevent pixelisation after distortion.
+	// Allow configuration for performance.
+	mvRiftFramebufferSize.x = mpConfig->GetInt("Screen","RiftFramebufferWidth", 800);
+	mvRiftFramebufferSize.y = mpConfig->GetInt("Screen","RiftFramebufferHeight", 1000);
+
 	mbLogResources = mpConfig->GetBool("Debug", "LogResources", false);
 	mbDebugInteraction = mpConfig->GetBool("Debug", "DebugInteraction", false);
 
@@ -397,6 +406,10 @@ bool cInit::Init(tString asCommandLine)
 	Vars.AddInt("ScreenBpp",32);
 	Vars.AddBool("Fullscreen",mbFullScreen);
 	Vars.AddInt("Multisampling",mlFSAA);
+	Vars.AddBool("RiftSupport", mbRiftSupport);
+	Vars.AddBool("RiftPregenWarp", mbRiftPregen);
+	Vars.AddInt("RiftFramebufferWidth", mvRiftFramebufferSize.x);
+	Vars.AddInt("RiftFramebufferHeight", mvRiftFramebufferSize.y);
 	Vars.AddInt("LogicUpdateRate",60);
 	Vars.AddBool("UseSoundHardware",mbUseSoundHardware);
 	Vars.AddBool("ForceGeneric", mpConfig->GetBool("Sound", "ForceGeneric", false));
@@ -827,6 +840,10 @@ void cInit::Exit()
 	mpConfig->SetInt("Screen","Height",mvScreenSize.y);
 	mpConfig->SetBool("Screen", "FullScreen", mbFullScreen);
 	mpConfig->SetBool("Screen", "Vsync", mbVsync);
+	mpConfig->SetBool("Screen", "RiftSupport", mbRiftSupport);
+	mpConfig->SetBool("Screen", "RiftPregenWarp", mbRiftPregen);
+	mpConfig->SetInt("Screen", "RiftFramebufferWidth", mvRiftFramebufferSize.x);
+	mpConfig->SetInt("Screen", "RiftFramebufferHeight", mvRiftFramebufferSize.y);
 
 	mpConfig->SetString("Demo","WebPageOnExit",msWebPageOnExit);
 	
